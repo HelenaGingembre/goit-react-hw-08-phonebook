@@ -17,8 +17,8 @@ export class App extends Component {
     filter: '',
   };
   //метод обробки контактів який додає новий контакт
-  addContact = ({ data }) => {
-    console.log('newContact', { data });
+  addContact = data => {
+    console.log('newContact', data);
     this.setState(
       prevState => ({
         contacts: [...prevState.contacts, data],
@@ -32,7 +32,7 @@ export class App extends Component {
   };
 
   //функция (метод) проверки на уникальность контактов
-  handleCheckUniqueContact = name => {
+  checkUniqueContact = name => {
     //берем наши контакты из state
     const { contacts } = this.state;
     //перевіряємо наявність контакту в масиві контактів
@@ -46,13 +46,13 @@ export class App extends Component {
 
   render() {
     const visibleContacts = this.getVisibleContacts();
-    const { contacts } = this.state.contacts;
+
     return (
       <>
         <Section title="Phonebook">
           <ContactForm
             onSubmit={this.addContact}
-            onCheckUnique={this.handleCheckUniqueContact}
+            onCheckUnique={this.checkUniqueContact}
           />
         </Section>
         <Section title="Contacts">
