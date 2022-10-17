@@ -11,9 +11,7 @@ const ContactListItem = ({ id, name, number }) => {
 };
 
 export const ContactList = ({ contacts }) => {
-  //якщо список контактів ще немає, то розмітка не рендериться
   if (contacts.length === 0) return null;
-  //якщо список контактів є то малюєм список
   return (
     <ContactListBox>
       {contacts.map((contact, id) => (

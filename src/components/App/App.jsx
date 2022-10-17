@@ -1,12 +1,11 @@
 import { Component } from 'react';
-// import { nanoid } from 'nanoid';
-// import { Container } from './Container/Container';
 import { Section } from '../Section/Section';
 import { ContactForm } from '../ContactForm/ContactForm';
 import { ContactList } from '../ContactList/ContactList';
+import { FilterInput } from '../FilterInput/FilterInput';
 
 export class App extends Component {
-  // публична властивість state - завжди об'єкт, від  його властивості залежить розмітка
+  // публічна властивість state - завжди об'єкт
   state = {
     contacts: [
       { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -26,14 +25,20 @@ export class App extends Component {
       alert('New contact is add in your phonebook')
     );
   };
+
+  //будемо міняти state: filter
+  filterChange = filter => this.setState({ filter });
+  //функція (метод) отримання контактів для відмальовки у листі (фільтр -  не чутливий до регістру)
   getVisibleContacts = () => {
-    const { contacts } = this.state;
-    return contacts;
+    const { contacts, filter } = this.state;
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
   };
 
-  //функция (метод) проверки на уникальность контактов
+  //функція (метод) перевірка на унікальність контактів
   checkUniqueContact = name => {
-    //берем наши контакты из state
+    //беремо контакти із state
     const { contacts } = this.state;
     //перевіряємо наявність контакту в масиві контактів
     //ставим !! якщо щось знайдеться то отримаємо true в протилежному випадку false
@@ -46,7 +51,7 @@ export class App extends Component {
 
   render() {
     const visibleContacts = this.getVisibleContacts();
-
+    const { filter } = this.state;
     return (
       <>
         <Section title="Phonebook">
@@ -57,6 +62,7 @@ export class App extends Component {
         </Section>
         <Section title="Contacts">
           <h3>Find contacts by name</h3>
+          <FilterInput filter={filter} onChange={this.filterChange} />
           <ContactList contacts={visibleContacts} />
         </Section>
       </>
