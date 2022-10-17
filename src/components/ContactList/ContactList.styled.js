@@ -9,6 +9,8 @@ export const ContactListLi = styled.li`
   padding: 2px;
   width: 100%;
 `;
-export const ContactListBox = styled.ol`
+export const ContactListBox = styled.ul`
   width: 500px;
+  list-style: circle;
+  padding: 20px;
 `;
