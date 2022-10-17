@@ -2,8 +2,12 @@ import PropTypes from 'prop-types';
 
 import { ContactListLi, ContactListBox } from './ContactList.styled';
 
-const ContactListItem = ({ id, name }) => {
-  return <ContactListLi>{name}</ContactListLi>;
+const ContactListItem = ({ id, name, number }) => {
+  return (
+    <ContactListLi>
+      {name}: {number}
+    </ContactListLi>
+  );
 };
 
 export const ContactList = ({ contacts }) => {
