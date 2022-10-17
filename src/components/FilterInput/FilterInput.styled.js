@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Input = styled.input`
   height: 25px;
+  width: 300px;
   margin-top: 3px;
   font-weight: 400;
   font-size: 13px;
@@ -11,5 +12,5 @@ export const Input = styled.input`
   &:focus {
     border: 1px solid ${p => p.theme.colors.accent};
   }
-  box-sezing: border-box;
+  box-sizing: border-box;
 `;

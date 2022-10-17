@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const MainContainer = styled.div`
-  width: 600px;
-  padding: 0 15px;
-  margin: 0 auto;
+  width: 500px;
+  padding: 20px;
+  border: 1px solid ${p => p.theme.colors.accent};
+  border-radius: 5px;
 `;

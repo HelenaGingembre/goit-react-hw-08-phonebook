@@ -7,7 +7,7 @@ export const FilterInput = ({ filter, onChange }) => {
     <Input
       type="text"
       name="filter"
-      placeholder="Enter name for Search"
+      placeholder="Enter name for Search Contact"
       value={filter}
       onChange={({ target }) => onChange(target.value)}
     />

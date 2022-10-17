@@ -4,6 +4,7 @@ export const Form = styled.form`
   border: 1px solid ${p => p.theme.colors.accent};
   width: 500px;
   padding: 20px;
+  border-radius: 5px;
 `;
 
 export const Label = styled.label`
@@ -23,5 +24,5 @@ export const Input = styled.input`
   &:focus {
     border: 1px solid ${p => p.theme.colors.accent};
   }
-  box-sezing: border-box;
+  box-sizing: border-box;
 `;

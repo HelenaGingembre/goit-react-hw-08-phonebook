@@ -3,6 +3,7 @@ import { Section } from '../Section/Section';
 import { ContactForm } from '../ContactForm/ContactForm';
 import { ContactList } from '../ContactList/ContactList';
 import { FilterInput } from '../FilterInput/FilterInput';
+import { Container } from 'components/Container/Container';
 
 export class App extends Component {
   // публічна властивість state - завжди об'єкт
@@ -61,9 +62,11 @@ export class App extends Component {
           />
         </Section>
         <Section title="Contacts">
-          <h3>Find contacts by name</h3>
-          <FilterInput filter={filter} onChange={this.filterChange} />
-          <ContactList contacts={visibleContacts} />
+          <Container>
+            <h4>Find contacts by name</h4>
+            <FilterInput filter={filter} onChange={this.filterChange} />
+            <ContactList contacts={visibleContacts} />
+          </Container>
         </Section>
       </>
     );
