@@ -7,6 +7,7 @@ import './index.css';
 const theme = {
   colors: {
     black: 'black',
+    blue_ciel: 'rgb(230, 243, 250)',
     white: 'white',
     gray: 'rgb(204, 204, 204)',
     accent: '#4298f9',

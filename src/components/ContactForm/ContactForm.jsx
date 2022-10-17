@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Label, Input } from './ContactForm.styled';
+import { Form, Label, Input, Btn } from './ContactForm.styled';
 import { nanoid } from 'nanoid';
 
 const INITIAL_STATE = {
@@ -81,7 +81,7 @@ export class ContactForm extends Component {
             required
           />
         </Label>
-        <button type="submit">Add contact</button>
+        <Btn type="submit">Add contact</Btn>
       </Form>
     );
   }

@@ -5,4 +5,5 @@ export const MainContainer = styled.div`
   padding: 20px;
   border: 1px solid ${p => p.theme.colors.accent};
   border-radius: 5px;
+  background-color: ${p => p.theme.colors.blue_ciel};
 `;
