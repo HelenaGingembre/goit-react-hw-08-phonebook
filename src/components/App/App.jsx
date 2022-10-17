@@ -45,10 +45,19 @@ export class App extends Component {
     //ставим !! якщо щось знайдеться то отримаємо true в протилежному випадку false
     const isExistContact = !!contacts.find(contact => contact.name === name);
     //якщо існує контакту, то виводимо повідомленні
-    isExistContact && alert('Contact is already exist in your phonebook');
+    isExistContact && alert(`${name} is already in contacts`);
     //ставимo інверсію (якщо не існує контакту, тобто він унікальний)
     return !isExistContact;
   };
+
+  //функція (метод) видаляє контакт по Id
+  removeContact = id =>
+    this.setState(
+      ({ contacts }) => ({
+        contacts: contacts.filter(contact => contact.id !== id),
+      }),
+      alert('Contact is delete')
+    );
 
   render() {
     const visibleContacts = this.getVisibleContacts();
@@ -65,7 +74,10 @@ export class App extends Component {
           <Container>
             <h4>Find contacts by name</h4>
             <FilterInput filter={filter} onChange={this.filterChange} />
-            <ContactList contacts={visibleContacts} />
+            <ContactList
+              contacts={visibleContacts}
+              onRemove={this.removeContact}
+            />
           </Container>
         </Section>
       </>
