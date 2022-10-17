@@ -47,6 +47,8 @@ export class ContactForm extends Component {
       return false;
     }
     console.log('вийшли з валіаціі');
+    // функция проверяет есть ли такой контакт в списке контактов
+    return this.props.onCheckUnique(name);
   };
   render() {
     // берем із state ім'я і телефон

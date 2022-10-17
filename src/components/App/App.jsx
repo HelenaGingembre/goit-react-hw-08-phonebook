@@ -31,6 +31,19 @@ export class App extends Component {
     return contacts;
   };
 
+  //функция (метод) проверки на уникальность контактов
+  handleCheckUniqueContact = name => {
+    //берем наши контакты из state
+    const { contacts } = this.state;
+    //перевіряємо наявність контакту в масиві контактів
+    //ставим !! якщо щось знайдеться то отримаємо true в протилежному випадку false
+    const isExistContact = !!contacts.find(contact => contact.name === name);
+    //якщо існує контакту, то виводимо повідомленні
+    isExistContact && alert('Contact is already exist in your phonebook');
+    //ставимo інверсію (якщо не існує контакту, тобто він унікальний)
+    return !isExistContact;
+  };
+
   render() {
     const visibleContacts = this.getVisibleContacts();
     const { contacts } = this.state.contacts;
@@ -38,9 +51,8 @@ export class App extends Component {
       <>
         <Section title="Phonebook">
           <ContactForm
-            contacts={contacts}
             onSubmit={this.addContact}
-            // onCheckUnique={this.handleCheckUniqueContact}
+            onCheckUnique={this.handleCheckUniqueContact}
           />
         </Section>
         <Section title="Contacts">
