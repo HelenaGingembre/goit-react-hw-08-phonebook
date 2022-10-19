@@ -16,7 +16,7 @@ export class ContactForm extends Component {
   // обробник інпута в onChange
   handleChangeForm = ({ target }) => {
     const { name, value } = target;
-    console.log('target.value', target.value.toUpperCase());
+    console.log('target.value', target.value.trim().toUpperCase());
     this.setState({ [name]: value });
   };
 
@@ -46,8 +46,7 @@ export class ContactForm extends Component {
 
     //перевіряємо що в нас name  не пустий
     if (!name || !number) {
-      toast.error('Name or number  is empty') &&
-        alert('Name or number  is empty');
+      toast.error('Name or number  is empty');
 
       return false;
     }

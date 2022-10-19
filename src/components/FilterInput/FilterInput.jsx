@@ -9,7 +9,7 @@ export const FilterInput = ({ filter, onChange }) => {
       name="filter"
       placeholder="Enter name for Search Contact"
       value={filter}
-      onChange={({ target }) => onChange(target.value)}
+      onChange={({ target }) => onChange(target.value.trim())}
     />
   );
 };

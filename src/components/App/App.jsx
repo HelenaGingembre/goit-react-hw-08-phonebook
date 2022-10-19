@@ -44,7 +44,9 @@ export class App extends Component {
     const { contacts } = this.state;
     //перевіряємо наявність контакту в масиві контактів
     //ставим !! якщо щось знайдеться то отримаємо true в протилежному випадку false
-    const isExistContact = !!contacts.find(contact => contact.name === name);
+    const isExistContact = !!contacts.find(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
     //якщо існує контакту, то виводимо повідомленні
     isExistContact && toast.error(`${name} is already in contacts`); //&&
     // alert`${name} is already in contacts`;
