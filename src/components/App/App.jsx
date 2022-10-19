@@ -1,4 +1,7 @@
-import { Component } from 'react';
+import { React, Component } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 import { Section } from '../Section/Section';
 import { ContactForm } from '../ContactForm/ContactForm';
 import { ContactList } from '../ContactList/ContactList';
@@ -19,12 +22,10 @@ export class App extends Component {
   //метод обробки контактів який додає новий контакт
   addContact = data => {
     console.log('newContact', data);
-    this.setState(
-      prevState => ({
-        contacts: [...prevState.contacts, data],
-      }),
-      alert('New contact is add in your phonebook')
-    );
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, data],
+    }));
+    toast.success('New contact is add in your phonebook');
   };
 
   //будемо міняти state: filter
@@ -45,19 +46,21 @@ export class App extends Component {
     //ставим !! якщо щось знайдеться то отримаємо true в протилежному випадку false
     const isExistContact = !!contacts.find(contact => contact.name === name);
     //якщо існує контакту, то виводимо повідомленні
-    isExistContact && alert(`${name} is already in contacts`);
+    isExistContact && toast.error(`${name} is already in contacts`); //&&
+    // alert`${name} is already in contacts`;
     //ставимo інверсію (якщо не існує контакту, тобто він унікальний)
     return !isExistContact;
   };
 
   //функція (метод) видаляє контакт по Id
-  removeContact = id =>
-    this.setState(
-      ({ contacts }) => ({
-        contacts: contacts.filter(contact => contact.id !== id),
-      }),
-      alert('Contact is delete')
-    );
+  removeContact = id => {
+    this.setState(prevState => {
+      return {
+        contacts: prevState.contacts.filter(contact => contact.id !== id),
+      };
+    });
+    toast.success(`Contact is delete`);
+  };
 
   render() {
     const visibleContacts = this.getVisibleContacts();
@@ -79,6 +82,7 @@ export class App extends Component {
               onRemove={this.removeContact}
             />
           </Container>
+          <ToastContainer autoClose={2000} />
         </Section>
       </>
     );
