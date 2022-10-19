@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Label, Input, Btn } from './ContactForm.styled';
 import { nanoid } from 'nanoid';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const INITIAL_STATE = {
@@ -16,7 +16,6 @@ export class ContactForm extends Component {
   // обробник інпута в onChange
   handleChangeForm = ({ target }) => {
     const { name, value } = target;
-    console.log('target.value', target.value.trim().toUpperCase());
     this.setState({ [name]: value });
   };
 
@@ -25,13 +24,8 @@ export class ContactForm extends Component {
     event.preventDefault();
     // берем із state ім'я
     const { name, number } = this.state;
-    // console.log('this.state name', this.state);
-    const isValidateForm = this.validateForm();
-    // перевіряємо якщо  форма не валідна робимо вихід
-    if (!isValidateForm) return;
     // якщо все ок визвем метод onSubmit та поревнемо в нього контакт name, number
     this.props.onSubmit({ id: nanoid(6), name, number });
-    // console.log('onSubmit this.state name', this.state);
 
     this.resetForm();
   };
@@ -39,21 +33,6 @@ export class ContactForm extends Component {
   //метод для очистки формы после отправки данных
   resetForm = () => this.setState(INITIAL_STATE);
 
-  // валідатор форми
-  validateForm = () => {
-    // console.log('зайшли у валіацію');
-    const { name, number } = this.state;
-
-    //перевіряємо що в нас name  не пустий
-    if (!name || !number) {
-      toast.error('Name or number  is empty');
-
-      return false;
-    }
-    // console.log('вийшли з валіаціі');
-    // функция проверяет есть ли такой контакт в списке контактов
-    return this.props.onCheckUnique(name);
-  };
   render() {
     // берем із state ім'я і телефон
     const { name, number } = this.state;

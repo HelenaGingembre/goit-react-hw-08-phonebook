@@ -19,14 +19,6 @@ export class App extends Component {
     ],
     filter: '',
   };
-  //метод обробки контактів який додає новий контакт
-  addContact = data => {
-    console.log('newContact', data);
-    this.setState(prevState => ({
-      contacts: [...prevState.contacts, data],
-    }));
-    toast.success('New contact is add in your phonebook');
-  };
 
   //будемо міняти state: filter
   filterChange = filter => this.setState({ filter });
@@ -49,9 +41,20 @@ export class App extends Component {
     );
     //якщо існує контакту, то виводимо повідомленні
     isExistContact && toast.error(`${name} is already in contacts`); //&&
-    // alert`${name} is already in contacts`;
+
     //ставимo інверсію (якщо не існує контакту, тобто він унікальний)
     return !isExistContact;
+  };
+  //метод обробки контактів який додає новий контакт
+  addContact = data => {
+    console.log('newContact', data);
+
+    if (this.checkUniqueContact(data.name)) {
+      this.setState(prevState => ({
+        contacts: [...prevState.contacts, data],
+      }));
+      toast.success(`New contact- "${data.name}" is add in your phonebook`);
+    }
   };
 
   //функція (метод) видаляє контакт по Id
@@ -72,7 +75,7 @@ export class App extends Component {
         <Section title="Phonebook">
           <ContactForm
             onSubmit={this.addContact}
-            onCheckUnique={this.checkUniqueContact}
+            // onCheckUnique={this.checkUniqueContact}
           />
         </Section>
         <Section title="Contacts">
