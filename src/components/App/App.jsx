@@ -74,14 +74,18 @@ export class App extends Component {
           />
         </Section>
         <Section title="Contacts">
-          <Container>
-            <h4>Find contacts by name</h4>
-            <FilterInput filter={filter} onChange={this.filterChange} />
-            <ContactList
-              contacts={visibleContacts}
-              onRemove={this.removeContact}
-            />
-          </Container>
+          {visibleContacts.length > 0 ? (
+            <Container>
+              <h4>Find contacts by name</h4>
+              <FilterInput filter={filter} onChange={this.filterChange} />
+              <ContactList
+                contacts={visibleContacts}
+                onRemove={this.removeContact}
+              />
+            </Container>
+          ) : (
+            <h4>Phonebook is empty</h4>
+          )}
           <ToastContainer autoClose={2000} />
         </Section>
       </>
