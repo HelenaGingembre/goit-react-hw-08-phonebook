@@ -1,5 +1,6 @@
 import { React, Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import initialContacts from '../../data/contacts.json';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { Section } from '../Section/Section';
@@ -11,12 +12,7 @@ import { Container } from 'components/Container/Container';
 export class App extends Component {
   // публічна властивість state - завжди об'єкт
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: [],
     filter: '',
   };
 
@@ -67,7 +63,31 @@ export class App extends Component {
     toast.success(`Contact is delete`);
   };
 
+  componentDidMount() {
+    console.log('componentDidMount');
+    const contacts = localStorage.getItem('contacts');
+    const parseContacts = JSON.parse(contacts);
+
+    if (parseContacts) {
+      this.setState({ contacts: parseContacts });
+    } else {
+      this.setState({ contacts: initialContacts });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('componentDidUpdate');
+    if (this.state.contacts !== prevState.contacts) {
+      console.log('update setState');
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+      console.log(
+        'localStorage',
+        localStorage.getItem('contacts', JSON.stringify(this.state.contacts))
+      );
+    }
+  }
   render() {
+    console.log('add render');
     const visibleContacts = this.getVisibleContacts();
     const { filter } = this.state;
     return (
