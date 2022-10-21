@@ -64,7 +64,7 @@ export class App extends Component {
   };
 
   componentDidMount() {
-    console.log('componentDidMount');
+    //console.log('componentDidMount');
     const contacts = localStorage.getItem('contacts');
     const parseContacts = JSON.parse(contacts);
 
@@ -75,15 +75,13 @@ export class App extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log('componentDidUpdate');
-    if (this.state.contacts !== prevState.contacts) {
+  componentDidUpdate(_, prevState) {
+    //console.log('componentDidUpdate');
+    const currentContacts = this.state.contacts;
+    if (currentContacts !== prevState.contacts) {
       console.log('update setState');
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-      console.log(
-        'localStorage',
-        localStorage.getItem('contacts', JSON.stringify(this.state.contacts))
-      );
+      localStorage.setItem('contacts', JSON.stringify(currentContacts));
+      //console.log('localStorage',localStorage.getItem('contacts', JSON.stringify(currentContacts)));
     }
   }
   render() {
