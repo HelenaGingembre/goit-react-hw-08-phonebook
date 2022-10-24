@@ -9,6 +9,14 @@ import { ContactList } from '../ContactList/ContactList';
 import { FilterInput } from '../FilterInput/FilterInput';
 import { Container } from 'components/Container/Container';
 
+const parseDataFromLS = (key, initialValue = []) => {
+  try {
+    return JSON.parse(localStorage.getItem(key)) ?? initialValue;
+  } catch (error) {
+    return initialValue;
+  }
+};
+
 export class App extends Component {
   // публічна властивість state - завжди об'єкт
   state = {
@@ -65,14 +73,8 @@ export class App extends Component {
 
   componentDidMount() {
     //console.log('componentDidMount');
-    const contacts = localStorage.getItem('contacts');
-    const parseContacts = JSON.parse(contacts);
-
-    if (parseContacts) {
-      this.setState({ contacts: parseContacts });
-    } else {
-      this.setState({ contacts: initialContacts });
-    }
+    const parseContacts = parseDataFromLS('contacts', initialContacts);
+    this.setState({ contacts: parseContacts });
   }
 
   componentDidUpdate(_, prevState) {
