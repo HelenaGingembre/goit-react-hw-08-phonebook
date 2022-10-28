@@ -10,14 +10,6 @@ import { ContactList } from '../ContactList/ContactList';
 import { FilterInput } from '../FilterInput/FilterInput';
 import { Container } from 'components/Container/Container';
 
-// const parseDataFromLS = (key, initialValue = []) => {
-//   try {
-//     return JSON.parse(localStorage.getItem(key)) ?? initialValue;
-//   } catch (error) {
-//     return initialValue;
-//   }
-// };
-
 export function App() {
   // публічна властивість state - завжди об'єкт
   const [contacts, setContacts] = useState(
@@ -25,8 +17,8 @@ export function App() {
   );
   const [filterContacts, setFilterContacts] = useState('');
 
-  //будемо міняти state: filter
-  const filterChange = filter => setFilterContacts({ filter });
+  const filterChange = filter => setFilterContacts(filter);
+
   //функція (метод) отримання контактів для відмальовки у листі (фільтр -  не чутливий до регістру)
   const getVisibleContacts = () => {
     return contacts.filter(contact =>
@@ -38,14 +30,15 @@ export function App() {
   const checkUniqueContact = name => {
     //перевіряємо наявність контакту в масиві контактів
     //ставим !! якщо щось знайдеться то отримаємо true в протилежному випадку false
-    const isExistContact = !!contacts.find(
-      contact => contact.name.toLowerCase() === name.toLowerCase()
-    );
-    //якщо існує контакту, то виводимо повідомленні
-    isExistContact && toast.error(`${name} is already in contacts`); //&&
-
-    //ставимo інверсію (якщо не існує контакту, тобто він унікальний)
-    return !isExistContact;
+    if (
+      contacts.find(
+        contact => contact.name.toLowerCase() === name.toLowerCase()
+      )
+    ) {
+      //якщо існує контакту, то виводимо повідомленні
+      toast.error(`${name} is already in contacts`);
+      return false;
+    } else return true; //(якщо не існує контакту, тобто він унікальний)
   };
 
   //метод обробки контактів який додає новий контакт
@@ -53,9 +46,7 @@ export function App() {
     console.log('newContact', newContact);
 
     if (checkUniqueContact(newContact.name)) {
-      setContacts(prevState => ({
-        contacts: [...prevState.contacts, newContact],
-      }));
+      setContacts(contacts => [...contacts, newContact]);
       toast.success(
         `New contact- "${newContact.name}" is add in your phonebook`
       );
@@ -64,11 +55,7 @@ export function App() {
 
   //функція (метод) видаляє контакт по Id
   const removeContact = id => {
-    setContacts(prevContacts => {
-      return {
-        contacts: prevContacts.filter(contact => contact.id !== id),
-      };
-    });
+    setContacts(contacts.filter(contact => contact.id !== id));
     toast.success(`Contact is delete`);
   };
 
@@ -78,23 +65,18 @@ export function App() {
     }
   }, [contacts]);
 
+  const visibleContacts = getVisibleContacts();
   return (
     <>
       <Section title="Phonebook">
-        <ContactForm
-          onSubmit={addContact}
-          // onCheckUnique={this.checkUniqueContact}
-        />
+        <ContactForm onSubmit={addContact} />
       </Section>
       <Section title="Contacts">
-        {getVisibleContacts.length > 0 ? (
+        {visibleContacts.length > 0 ? (
           <Container>
             <h4>Find contacts by name</h4>
             <FilterInput filter={filterContacts} onChange={filterChange} />
-            <ContactList
-              contacts={getVisibleContacts}
-              onRemove={removeContact}
-            />
+            <ContactList contacts={visibleContacts} onRemove={removeContact} />
           </Container>
         ) : (
           <h4>Phonebook is empty</h4>

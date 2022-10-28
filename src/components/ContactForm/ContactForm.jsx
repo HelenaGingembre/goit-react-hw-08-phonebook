@@ -5,11 +5,6 @@ import { nanoid } from 'nanoid';
 // import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// const INITIAL_STATE = {
-//   name: '',
-//   number: '',
-// };
-
 export const ContactForm = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
@@ -29,6 +24,7 @@ export const ContactForm = ({ onSubmit }) => {
         break;
     }
   };
+  const resetForm = () => [setName(''), setNumber('')];
 
   // обробник submit форми
   const handleSubmit = event => {
@@ -39,12 +35,6 @@ export const ContactForm = ({ onSubmit }) => {
     onSubmit({ id: nanoid(6), name, number });
 
     resetForm();
-  };
-
-  //метод для очистки формы после отправки данных
-  const resetForm = () => {
-    setName('');
-    setNumber('');
   };
 
   return (
