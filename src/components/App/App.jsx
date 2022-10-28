@@ -1,4 +1,5 @@
-import { React, Component } from 'react';
+import React, { useState, useEffect } from 'react';
+
 import { ToastContainer, toast } from 'react-toastify';
 import initialContacts from '../../data/contacts.json';
 
@@ -9,35 +10,32 @@ import { ContactList } from '../ContactList/ContactList';
 import { FilterInput } from '../FilterInput/FilterInput';
 import { Container } from 'components/Container/Container';
 
-const parseDataFromLS = (key, initialValue = []) => {
-  try {
-    return JSON.parse(localStorage.getItem(key)) ?? initialValue;
-  } catch (error) {
-    return initialValue;
-  }
-};
+// const parseDataFromLS = (key, initialValue = []) => {
+//   try {
+//     return JSON.parse(localStorage.getItem(key)) ?? initialValue;
+//   } catch (error) {
+//     return initialValue;
+//   }
+// };
 
-export class App extends Component {
+export function App() {
   // публічна властивість state - завжди об'єкт
-  state = {
-    contacts: [],
-    filter: '',
-  };
+  const [contacts, setContacts] = useState(
+    () => JSON.parse(localStorage.getItem('contacts')) || initialContacts || []
+  );
+  const [filterContacts, setFilterContacts] = useState('');
 
   //будемо міняти state: filter
-  filterChange = filter => this.setState({ filter });
+  const filterChange = filter => setFilterContacts({ filter });
   //функція (метод) отримання контактів для відмальовки у листі (фільтр -  не чутливий до регістру)
-  getVisibleContacts = () => {
-    const { contacts, filter } = this.state;
+  const getVisibleContacts = () => {
     return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
+      contact.name.toLowerCase().includes(filterContacts.toLowerCase())
     );
   };
 
   //функція (метод) перевірка на унікальність контактів
-  checkUniqueContact = name => {
-    //беремо контакти із state
-    const { contacts } = this.state;
+  const checkUniqueContact = name => {
     //перевіряємо наявність контакту в масиві контактів
     //ставим !! якщо щось знайдеться то отримаємо true в протилежному випадку false
     const isExistContact = !!contacts.find(
@@ -49,71 +47,60 @@ export class App extends Component {
     //ставимo інверсію (якщо не існує контакту, тобто він унікальний)
     return !isExistContact;
   };
-  //метод обробки контактів який додає новий контакт
-  addContact = data => {
-    console.log('newContact', data);
 
-    if (this.checkUniqueContact(data.name)) {
-      this.setState(prevState => ({
-        contacts: [...prevState.contacts, data],
+  //метод обробки контактів який додає новий контакт
+  const addContact = newContact => {
+    console.log('newContact', newContact);
+
+    if (checkUniqueContact(newContact.name)) {
+      setContacts(prevState => ({
+        contacts: [...prevState.contacts, newContact],
       }));
-      toast.success(`New contact- "${data.name}" is add in your phonebook`);
+      toast.success(
+        `New contact- "${newContact.name}" is add in your phonebook`
+      );
     }
   };
 
   //функція (метод) видаляє контакт по Id
-  removeContact = id => {
-    this.setState(prevState => {
+  const removeContact = id => {
+    setContacts(prevContacts => {
       return {
-        contacts: prevState.contacts.filter(contact => contact.id !== id),
+        contacts: prevContacts.filter(contact => contact.id !== id),
       };
     });
     toast.success(`Contact is delete`);
   };
 
-  componentDidMount() {
-    //console.log('componentDidMount');
-    const parseContacts = parseDataFromLS('contacts', initialContacts);
-    this.setState({ contacts: parseContacts });
-  }
-
-  componentDidUpdate(_, prevState) {
-    //console.log('componentDidUpdate');
-    const currentContacts = this.state.contacts;
-    if (currentContacts !== prevState.contacts) {
-      console.log('update setState');
-      localStorage.setItem('contacts', JSON.stringify(currentContacts));
-      //console.log('localStorage',localStorage.getItem('contacts', JSON.stringify(currentContacts)));
+  useEffect(() => {
+    if (contacts) {
+      localStorage.setItem('contacts', JSON.stringify(contacts));
     }
-  }
-  render() {
-    console.log('add render');
-    const visibleContacts = this.getVisibleContacts();
-    const { filter } = this.state;
-    return (
-      <>
-        <Section title="Phonebook">
-          <ContactForm
-            onSubmit={this.addContact}
-            // onCheckUnique={this.checkUniqueContact}
-          />
-        </Section>
-        <Section title="Contacts">
-          {visibleContacts.length > 0 ? (
-            <Container>
-              <h4>Find contacts by name</h4>
-              <FilterInput filter={filter} onChange={this.filterChange} />
-              <ContactList
-                contacts={visibleContacts}
-                onRemove={this.removeContact}
-              />
-            </Container>
-          ) : (
-            <h4>Phonebook is empty</h4>
-          )}
-          <ToastContainer autoClose={2000} />
-        </Section>
-      </>
-    );
-  }
+  }, [contacts]);
+
+  return (
+    <>
+      <Section title="Phonebook">
+        <ContactForm
+          onSubmit={addContact}
+          // onCheckUnique={this.checkUniqueContact}
+        />
+      </Section>
+      <Section title="Contacts">
+        {getVisibleContacts.length > 0 ? (
+          <Container>
+            <h4>Find contacts by name</h4>
+            <FilterInput filter={filterContacts} onChange={filterChange} />
+            <ContactList
+              contacts={getVisibleContacts}
+              onRemove={removeContact}
+            />
+          </Container>
+        ) : (
+          <h4>Phonebook is empty</h4>
+        )}
+        <ToastContainer autoClose={2000} />
+      </Section>
+    </>
+  );
 }
