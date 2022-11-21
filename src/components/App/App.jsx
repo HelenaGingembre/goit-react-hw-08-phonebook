@@ -35,7 +35,7 @@ export function App() {
         contact => contact.name.toLowerCase() === name.toLowerCase()
       )
     ) {
-      //якщо існує контакту, то виводимо повідомленні
+      //якщо існує контакт, то виводимо повідомленні
       toast.error(`${name} is already in contacts`);
       return false;
     } else return true; //(якщо не існує контакту, тобто він унікальний)
