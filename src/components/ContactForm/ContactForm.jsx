@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export const ContactForm = () => {
   const dispatch = useDispatch();
   // обробник інпута в onChange
-  const handleChangeForm = ({ target }) => {
+  /* const handleChangeForm = ({ target }) => {
     const { name, value } = target;
 
     switch (name) {
@@ -27,7 +27,7 @@ export const ContactForm = () => {
       default:
         break;
     }
-  };
+  };*/
   // const resetForm = () => [setName(''), setNumber('')];
 
   // обробник submit форми
