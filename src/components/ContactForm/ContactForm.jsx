@@ -1,30 +1,34 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+// import { useState } from 'react';
+// import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { addContact } from '../../redux/action';
+
 import { Form, Label, Input, Btn } from './ContactForm.styled';
-import { nanoid } from 'nanoid';
-// import { toast } from 'react-toastify';
+// import { nanoid } from 'nanoid';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const ContactForm = ({ onSubmit }) => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+// export const ContactForm = ({ onSubmit }) => {
+// const [name, setName] = useState('');
+// const [number, setNumber] = useState('');
 
+export const ContactForm = () => {
+  const dispatch = useDispatch();
   // обробник інпута в onChange
   const handleChangeForm = ({ target }) => {
     const { name, value } = target;
 
     switch (name) {
       case 'name':
-        setName(value);
+        // setName(value);
         break;
       case 'number':
-        setNumber(value);
+        // setNumber(value);
         break;
       default:
         break;
     }
   };
-  const resetForm = () => [setName(''), setNumber('')];
+  // const resetForm = () => [setName(''), setNumber('')];
 
   // обробник submit форми
   const handleSubmit = event => {
@@ -32,9 +36,14 @@ export const ContactForm = ({ onSubmit }) => {
     // берем із state ім'я
 
     // якщо все ок визвем метод onSubmit та поревнемо в нього контакт name, number
-    onSubmit({ id: nanoid(6), name, number });
+    // onSubmit({ id: nanoid(6), name, number });
 
-    resetForm();
+    const form = event.target;
+    dispatch(addContact(form.elements.name.value));
+    dispatch(addContact(form.elements.number.value));
+    form.reset();
+
+    // resetForm();
   };
 
   return (
@@ -45,8 +54,8 @@ export const ContactForm = ({ onSubmit }) => {
           type="text"
           name="name"
           placeholder="Enter name"
-          value={name}
-          onChange={handleChangeForm}
+          // value={name}
+          // onChange={handleChangeForm}
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
@@ -58,8 +67,8 @@ export const ContactForm = ({ onSubmit }) => {
           type="tel"
           name="number"
           placeholder="Enter number telephone"
-          value={number}
-          onChange={handleChangeForm}
+          // value={number}
+          // onChange={handleChangeForm}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
@@ -70,8 +79,8 @@ export const ContactForm = ({ onSubmit }) => {
   );
 };
 
-ContactForm.propType = {
-  value: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-};
+// ContactForm.propType = {
+//   value: PropTypes.string.isRequired,
+//   id: PropTypes.string.isRequired,
+//   onChange: PropTypes.func.isRequired,
+// };
