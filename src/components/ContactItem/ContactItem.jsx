@@ -1,19 +1,17 @@
 import { useDispatch } from 'react-redux';
 import { removeContact } from '../../redux/action';
-// import { MdClose } from 'react-icons-md';
+
 import { ContactListLi, ButtonDelete } from '../ContactList/ContactList.styled';
 
-export const ContactListItem = ({ id, name, number }) => {
+export const ContactListItem = ({ contact }) => {
   const dispatch = useDispatch();
 
-  const handleDelete = () => dispatch(removeContact(id));
+  const handleDelete = () => dispatch(removeContact(contact.id));
 
   return (
     <ContactListLi>
-      {name}: {number}
-      <ButtonDelete onClick={handleDelete}>
-        x{/* <MdClose size={24} /> */}
-      </ButtonDelete>
+      {contact.name}: {contact.number}
+      <ButtonDelete onClick={handleDelete}>x</ButtonDelete>
     </ContactListLi>
   );
 };
