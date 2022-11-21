@@ -1,7 +1,7 @@
 // import { useState } from 'react';
 // import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { addContact } from '../../redux/action';
+import { addContact } from '../../redux/actions';
 
 import { Form, Label, Input, Btn } from './ContactForm.styled';
 // import { nanoid } from 'nanoid';
