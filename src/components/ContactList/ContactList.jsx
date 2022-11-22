@@ -1,18 +1,13 @@
 // import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { getContacts /*, getStatusFilter*/ } from '../../redux/selectors';
-import { toast } from 'react-toastify';
+import { getContacts, getFilter } from '../../redux/selectors';
+// import { toast } from 'react-toastify';
 import { ContactListItem } from '../ContactItem/ContactItem';
 import {
   // ContactListLi,
   ContactListBox,
   // ButtonDelete,
 } from './ContactList.styled';
-
-const getVisibleContacts = contacts => {
-  if (contacts.length > 0) return contacts;
-  else toast.error(`Phonebook is empty`);
-};
 
 // const ContactListItem = ({ id, name, number, onRemove }) => {
 //   return (
@@ -25,11 +20,20 @@ const getVisibleContacts = contacts => {
 
 // export const ContactList = ({ contacts, onRemove }) => {
 export const ContactList = () => {
-  const contacts = useSelector(getContacts);
-  // const statusFilter = useSelector(getStatusFilter);
-  const visibleContacts = getVisibleContacts(contacts);
+  const contacts = useSelector(getContacts.items);
+  console.log(getFilter);
+  const filterValue = useSelector(state => state.filter);
 
-  if (contacts.length === 0) return null;
+  const getVisibleContacts = () => {
+    contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filterValue.toLowerCase())
+    );
+  };
+
+  // const statusFilter = useSelector(getStatusFilter);
+  const visibleContacts = getVisibleContacts();
+
+  // if (contacts.length === 0) return null;
   return (
     <ContactListBox>
       {visibleContacts.map(contact => (
