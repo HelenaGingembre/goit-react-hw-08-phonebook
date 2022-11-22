@@ -7,14 +7,15 @@ import contactsInitialState from '../data/contacts.json';
 //   { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
 //   { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
 // ];
+console.log(contactsInitialState);
 
 const contactSlice = createSlice({
   // Имя слайса
   name: 'contacts',
   // Начальное состояние редюсера слайса
-  initialState: {
-    contactsInitialState,
-  },
+  initialState:
+    JSON.parse(localStorage.getItem('contacts')) || contactsInitialState || [],
+
   // Объект редюсеров
   reducers: {
     addContact: (state, action) => [...state, action.payload],
@@ -30,9 +31,7 @@ console.log('contactSlice', contactSlice);
 
 // Генераторы экшенов
 export const { addContact, removeContact } = contactSlice.actions;
-// export const { filterContact } = contactsFilterSlice.actions;
 
 const contactsReducer = contactSlice.reducer;
 // Редюсер слайса
 export default contactsReducer;
-// export default contactsFilterSlice.reducer;

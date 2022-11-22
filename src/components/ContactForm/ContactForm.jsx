@@ -7,6 +7,7 @@ import { Form, Label, Input, Btn } from './ContactForm.styled';
 import { nanoid } from 'nanoid';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
+import { getContacts } from 'redux/selectors';
 
 // export const ContactForm = ({ onSubmit }) => {
 // const [name, setName] = useState('');
@@ -14,7 +15,7 @@ import { toast } from 'react-toastify';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.items);
+  const contacts = useSelector(getContacts);
   const [formInput, setFormInput] = useState({
     name: '',
     number: '',

@@ -18,13 +18,6 @@ export function App() {
 
   // const filterChange = filter => setFilterContacts(filter);
 
-  //функція (метод) отримання контактів для відмальовки у листі (фільтр -  не чутливий до регістру)
-  // const getVisibleContacts = () => {
-  //   return contacts.filter(contact =>
-  //     contact.name.toLowerCase().includes(filterContacts.toLowerCase())
-  //   );
-  // };
-
   //функція (метод) перевірка на унікальність контактів
   // const checkUniqueContact = name => {
   //   //перевіряємо наявність контакту в масиві контактів
@@ -50,12 +43,6 @@ export function App() {
   //       `New contact- "${newContact.name}" is add in your phonebook`
   //     );
   //   }
-  // };
-
-  //функція (метод) видаляє контакт по Id
-  // const removeContact = id => {
-  //   setContacts(contacts.filter(contact => contact.id !== id));
-  //   toast.success(`Contact is delete`);
   // };
 
   // useEffect(() => {

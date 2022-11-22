@@ -3,43 +3,34 @@ import { useSelector } from 'react-redux';
 import { getContacts, getFilter } from '../../redux/selectors';
 // import { toast } from 'react-toastify';
 import { ContactListItem } from '../ContactItem/ContactItem';
-import {
-  // ContactListLi,
-  ContactListBox,
-  // ButtonDelete,
-} from './ContactList.styled';
+import { ContactListBox } from './ContactList.styled';
 
-// const ContactListItem = ({ id, name, number, onRemove }) => {
-//   return (
-//     <ContactListLi>
-//       {name}: {number}
-//       <ButtonDelete onClick={() => onRemove(id)}>Delete</ButtonDelete>
-//     </ContactListLi>
-//   );
-// };
-
-// export const ContactList = ({ contacts, onRemove }) => {
 export const ContactList = () => {
-  const contacts = useSelector(getContacts.items);
-  console.log(getFilter);
-  const filterValue = useSelector(state => state.filter);
+  const contacts = useSelector(getContacts);
+  const filterValue = useSelector(getFilter);
+
+  // console.log('getContacts', getContacts);
+
+  //функція (метод) отримання контактів для відмальовки у листі (фільтр -  не чутливий до регістру)
 
   const getVisibleContacts = () => {
-    contacts.filter(contact =>
+    // console.log('contacts', contacts);
+    return contacts.filter(contact =>
       contact.name.toLowerCase().includes(filterValue.toLowerCase())
     );
   };
 
-  // const statusFilter = useSelector(getStatusFilter);
   const visibleContacts = getVisibleContacts();
 
-  // if (contacts.length === 0) return null;
   return (
     <ContactListBox>
-      {visibleContacts.map(contact => (
-        // <ContactListItem {...contact} key={id} onRemove={onRemove} />
-        <ContactListItem contact={contact} />
-      ))}
+      {visibleContacts.length > 0 ? (
+        visibleContacts.map(contact => (
+          <ContactListItem contact={contact} key={contact.id} />
+        ))
+      ) : (
+        <h4>Phonebook is empty</h4>
+      )}
     </ContactListBox>
   );
 };
