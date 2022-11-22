@@ -1,26 +1,32 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { nanoid } from 'nanoid';
+import { createSlice, nanoid } from '@reduxjs/toolkit';
+// import { nanoid } from 'nanoid';
+const contactsInitialState = [
+  { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+  { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+  { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+  { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+];
 
 const contactSlice = createSlice({
+  // Имя слайса
   name: 'contacts',
+  // Начальное состояние редюсера слайса
   initialState: {
-    contacts: [],
+    contactsInitialState,
   },
+  // Объект редюсеров
   reducers: {
-    addContact(state, action) {
-      console.log('state', state);
-      console.log('action', action);
+    addContact: (state, action) => [...state, action.payload],
 
-      state.contacts.push({
-        id: nanoid(6),
-        name: action.payload.name,
-        number: action.payload.number,
-      });
+    removeContact(state, action) {
+      const index = state.findIndex(contact => contact.id === action.payload);
+      state.splice(index, 1);
     },
-    removeContact(state, action) {},
   },
 });
 
+// Генераторы экшенов
 export const { addContact, removeContact } = contactSlice.actions;
 
+// Редюсер слайса
 export default contactSlice.reducer;
