@@ -21,14 +21,16 @@ export const ContactList = () => {
   console.log('getVisibleContacts', getVisibleContacts);
 
   return (
-    <ContactListBox>
+    <>
       {getVisibleContacts.length > 0 ? (
-        getVisibleContacts.map(contact => (
-          <ContactListItem contact={contact} key={contact.id} />
-        ))
+        <ContactListBox>
+          {getVisibleContacts.map(contact => (
+            <ContactListItem contact={contact} key={contact.id} />
+          ))}
+        </ContactListBox>
       ) : (
         <h4>Phonebook is empty</h4>
       )}
-    </ContactListBox>
+    </>
   );
 };
