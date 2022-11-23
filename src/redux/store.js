@@ -25,7 +25,6 @@ export const store = configureStore({
 const persistConfig = {
   key: 'contacts',
   storage,
-  // blacklist: ['_persist'],
 };
 
 const persistedReducer = persistReducer(persistConfig, contactsReducer);
