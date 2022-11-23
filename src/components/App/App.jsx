@@ -54,34 +54,15 @@ export function App() {
   // const visibleContacts = getVisibleContacts();
   return (
     <>
-      {/* <Section title="Phonebook">
-        <ContactForm onSubmit={addContact} />
-      </Section>
-      <Section title="Contacts">
-        {visibleContacts.length > 0 ? (
-          <Container>
-            <h4>Find contacts by name</h4>
-            <FilterInput filter={filterContacts} onChange={filterChange} />
-            <ContactList contacts={visibleContacts} onRemove={removeContact} />
-          </Container>
-        ) : (
-          <h4>Phonebook is empty</h4>
-        )}
-        <ToastContainer autoClose={2000} />
-      </Section> */}
       <Section title="Phonebook">
         <ContactForm />
       </Section>
       <Section title="Contacts">
-        {/* {visibleContacts.length > 0 ? ( */}
         <Container>
           <h4>Find contacts by name</h4>
           <FilterInput />
           <ContactList />
         </Container>
-        {/* ) : (
-          <h4>Phonebook is empty</h4>
-        )} */}
         <ToastContainer autoClose={2000} />
       </Section>
     </>

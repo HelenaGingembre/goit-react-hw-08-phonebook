@@ -9,10 +9,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import { getContacts } from 'redux/selectors';
 
-// export const ContactForm = ({ onSubmit }) => {
-// const [name, setName] = useState('');
-// const [number, setNumber] = useState('');
-
 export const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
@@ -31,16 +27,11 @@ export const ContactForm = () => {
     event.preventDefault();
     // берем із state ім'я
 
-    // якщо все ок визвем метод onSubmit та поревнемо в нього контакт name, number
-    // onSubmit({ id: nanoid(6), name, number });
-
     const form = event.target;
     dispatch(addContact({ id: nanoid(10), name, number }));
     toast.success(`Contact ${name}is add phonebook`);
     // dispatch(addContact(form.elements.number.value));
     form.reset();
-
-    // resetForm();
   };
 
   useEffect(() => {

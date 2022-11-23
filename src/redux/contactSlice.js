@@ -14,8 +14,8 @@ const contactSlice = createSlice({
   name: 'contacts',
   // Начальное состояние редюсера слайса
   initialState:
-    JSON.parse(localStorage.getItem('contacts')) || contactsInitialState || [],
-
+    // JSON.parse(localStorage.getItem('contacts')) || contactsInitialState || [],
+    contactsInitialState,
   // Объект редюсеров
   reducers: {
     addContact: (state, action) => [...state, action.payload],
