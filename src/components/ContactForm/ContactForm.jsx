@@ -38,7 +38,7 @@ export const ContactForm = () => {
       contacts.find(contact => contact.name.toLowerCase() === normalizedName)
     ) {
       toast.error(`${name} is already in contacts.`);
-      resetForm();
+      setName('');
       return;
     }
 
