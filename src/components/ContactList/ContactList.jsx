@@ -1,7 +1,6 @@
-// import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { getContacts, getFilter } from '../../redux/selectors';
-// import { toast } from 'react-toastify';
+
 import { ContactListItem } from '../ContactItem/ContactItem';
 import { ContactListBox } from './ContactList.styled';
 
@@ -33,18 +32,3 @@ export const ContactList = () => {
     </ContactListBox>
   );
 };
-
-// ContactListItem.propTypes = {
-//   id: PropTypes.string.isRequired,
-//   name: PropTypes.string.isRequired,
-//   number: PropTypes.string.isRequired,
-//   onRemove: PropTypes.func,
-// };
-// ContactList.propTypes = {
-//   contacts: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.string.isRequired,
-//     })
-//   ),
-//   onRemove: PropTypes.func,
-// };

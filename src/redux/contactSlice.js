@@ -1,30 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { nanoid } from 'nanoid';
 import contactsInitialState from '../data/contacts.json';
-// import { nanoid } from 'nanoid';
-// const contactsInitialState = [
-//   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-//   { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-//   { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-//   { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-// ];
-console.log(contactsInitialState);
+
+console.log('contactsInitialState', contactsInitialState);
 
 const contactSlice = createSlice({
   // Имя слайса
   name: 'contacts',
   // Начальное состояние редюсера слайса
-  initialState:
-    // JSON.parse(localStorage.getItem('contacts')) || contactsInitialState || [],
-    { contacts: contactsInitialState },
+  initialState: [],
   // Объект редюсеров
   reducers: {
-    addContact: (state, action) => [...state, action.payload],
-
-    removeContact: (state, action) => {
-      // const index = state.findIndex(contact => contact.id === action.payload);
-      // state.splice(index, 1);
-      state.filter(contact => contact.id !== action.payload);
+    addContact: {
+      reducer: (state, action) => [...state, action.payload],
+      prepare: newContact => ({ payload: { id: nanoid(), ...newContact } }),
     },
+    removeContact: (state, action) =>
+      state.filter(contact => contact.id !== action.payload),
   },
 });
 

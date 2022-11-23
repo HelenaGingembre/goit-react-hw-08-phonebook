@@ -1,7 +1,5 @@
-import { useState /*, useEffect */ } from 'react';
-// import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { addContact } from '../../redux/actions';
 import { addContact } from '../../redux/contactSlice';
 import { Form, Label, Input, Btn } from './ContactForm.styled';
 import { nanoid } from 'nanoid';
@@ -14,14 +12,11 @@ export const ContactForm = () => {
   const contacts = useSelector(getContacts);
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  // const [formInput, setFormInput] = useState({
-  //   name: '',
-  //   number: '',
-  // });
+
   // обробник контрольованого інпута в onChange
   const handleChangeForm = ({ target }) => {
     const { name, value } = target;
-    // setFormInput(prevForm => ({ ...prevForm, [name]: value }));
+
     switch (name) {
       case 'name':
         setName(value);
@@ -35,7 +30,6 @@ export const ContactForm = () => {
   };
   const resetForm = () => [setName(''), setNumber('')];
 
-  // const { name, number } = formInput;
   const handleSubmit = event => {
     event.preventDefault();
 
@@ -53,11 +47,6 @@ export const ContactForm = () => {
     resetForm();
   };
 
-  // useEffect(() => {
-  //   if (contacts) {
-  //     localStorage.setItem('contacts', JSON.stringify(contacts));
-  //   }
-  // }, [contacts]);
   return (
     <Form onSubmit={handleSubmit}>
       <Label htmlFor="name">
