@@ -11,7 +11,7 @@ export const ContactList = () => {
   const filterValue = useSelector(getFilter);
   const normalizedFilter = filterValue.toLowerCase();
   console.log('filterValue', filterValue);
-  console.log('getContacts', ...contacts);
+  console.log('getContacts', contacts);
 
   //функція (метод) отримання контактів для відмальовки у листі (фільтр -  не чутливий до регістру)
 
