@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState /*, useEffect */ } from 'react';
 // import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 // import { addContact } from '../../redux/actions';
@@ -12,33 +12,52 @@ import { getContacts } from 'redux/selectors';
 export const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
-  const [formInput, setFormInput] = useState({
-    name: '',
-    number: '',
-  });
-
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+  // const [formInput, setFormInput] = useState({
+  //   name: '',
+  //   number: '',
+  // });
+  // обробник контрольованого інпута в onChange
   const handleChangeForm = ({ target }) => {
     const { name, value } = target;
-    setFormInput(prevForm => ({ ...prevForm, [name]: value }));
+    // setFormInput(prevForm => ({ ...prevForm, [name]: value }));
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+      case 'number':
+        setNumber(value);
+        break;
+      default:
+        break;
+    }
   };
+  const resetForm = () => [setName(''), setNumber('')];
 
-  const { name, number } = formInput;
+  // const { name, number } = formInput;
   const handleSubmit = event => {
     event.preventDefault();
-    // берем із state ім'я
 
-    const form = event.target;
+    const normalizedName = name.toLowerCase();
+    if (
+      contacts.find(contact => contact.name.toLowerCase() === normalizedName)
+    ) {
+      alert(`${name} is already in contacts.`);
+      return;
+    }
+
     dispatch(addContact({ id: nanoid(10), name, number }));
     toast.success(`Contact ${name}is add phonebook`);
-    // dispatch(addContact(form.elements.number.value));
-    form.reset();
+
+    resetForm();
   };
 
-  useEffect(() => {
-    if (contacts) {
-      localStorage.setItem('contacts', JSON.stringify(contacts));
-    }
-  }, [contacts]);
+  // useEffect(() => {
+  //   if (contacts) {
+  //     localStorage.setItem('contacts', JSON.stringify(contacts));
+  //   }
+  // }, [contacts]);
   return (
     <Form onSubmit={handleSubmit}>
       <Label htmlFor="name">

@@ -7,25 +7,24 @@ import { ContactListBox } from './ContactList.styled';
 
 export const ContactList = () => {
   const contacts = useSelector(getContacts);
+  console.log('contacts', contacts);
   const filterValue = useSelector(getFilter);
-
-  // console.log('getContacts', getContacts);
+  const normalizedFilter = filterValue.toLowerCase();
+  console.log('filterValue', filterValue);
+  console.log('getContacts', ...contacts);
 
   //функція (метод) отримання контактів для відмальовки у листі (фільтр -  не чутливий до регістру)
 
-  const getVisibleContacts = () => {
-    // console.log('contacts', contacts);
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filterValue.toLowerCase())
-    );
-  };
+  const getVisibleContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(normalizedFilter)
+  );
 
-  const visibleContacts = getVisibleContacts();
+  console.log('getVisibleContacts', getVisibleContacts);
 
   return (
     <ContactListBox>
-      {visibleContacts.length > 0 ? (
-        visibleContacts.map(contact => (
+      {getVisibleContacts.length > 0 ? (
+        getVisibleContacts.map(contact => (
           <ContactListItem contact={contact} key={contact.id} />
         ))
       ) : (
