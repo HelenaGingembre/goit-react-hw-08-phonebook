@@ -6,12 +6,12 @@ import { ContactListLi, ButtonDelete } from '../ContactList/ContactList.styled';
 export const ContactListItem = ({ contact }) => {
   const dispatch = useDispatch();
 
-  const handleDelete = () => dispatch(removeContact(contact.id));
+  // const handleDelete = () => dispatch(removeContact(contact.id));
 
   return (
     <ContactListLi>
       {contact.name}: {contact.number}
-      <ButtonDelete onClick={handleDelete}>x</ButtonDelete>
+      {/* <ButtonDelete onClick={handleDelete}>x</ButtonDelete> */}
     </ContactListLi>
   );
 };

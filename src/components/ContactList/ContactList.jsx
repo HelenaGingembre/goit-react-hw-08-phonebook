@@ -5,27 +5,30 @@ import { ContactListItem } from '../ContactItem/ContactItem';
 import { ContactListBox } from './ContactList.styled';
 
 export const ContactList = () => {
-  const contacts = useSelector(getContacts);
-  console.log('contacts', contacts);
+  // const contacts = useSelector(getContacts);
+  const { items, isLoading, error } = useSelector(getContacts);
+  console.log('getContacts', getContacts);
   const filterValue = useSelector(getFilter);
   const normalizedFilter = filterValue.toLowerCase();
   console.log('filterValue', filterValue);
-  console.log('getContacts', contacts);
+  // console.log('getContacts', contacts);
 
   //функція (метод) отримання контактів для відмальовки у листі (фільтр -  не чутливий до регістру)
 
-  const getVisibleContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(normalizedFilter)
+  const getVisibleContacts = items.filter(item =>
+    item.name.toLowerCase().includes(normalizedFilter)
   );
 
   console.log('getVisibleContacts', getVisibleContacts);
 
   return (
     <>
-      {getVisibleContacts.length > 0 ? (
+      {isLoading && <p>Loading phone books...</p>}
+      {error && <p>{error}</p>}
+      {getVisibleContacts.length > 0 && JSON.stringify(items, null, 2) ? (
         <ContactListBox>
-          {getVisibleContacts.map(contact => (
-            <ContactListItem contact={contact} key={contact.id} />
+          {getVisibleContacts.map(item => (
+            <ContactListItem contact={item.name} key={item.id} />
           ))}
         </ContactListBox>
       ) : (

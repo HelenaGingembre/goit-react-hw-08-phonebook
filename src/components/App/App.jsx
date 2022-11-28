@@ -1,5 +1,6 @@
-// import React, { useState, useEffect } from 'react';
-// import initialContacts from '../../data/contacts.json';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPhoneBooks } from '../../redux/operations';
 
 import { ToastContainer /*, toast*/ } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,57 +11,21 @@ import { FilterInput } from '../FilterInput/FilterInput';
 import { Container } from 'components/Container/Container';
 
 export function App() {
-  // публічна властивість state - завжди об'єкт
-  // const [contacts, setContacts] = useState(
-  //   () => JSON.parse(localStorage.getItem('contacts')) || initialContacts || []
-  // );
-  // const [filterContacts, setFilterContacts] = useState('');
+  const dispatch = useDispatch();
+  // const { items, isLoading, error } = useSelector(state => state.contacts);
 
-  // const filterChange = filter => setFilterContacts(filter);
+  useEffect(() => {
+    dispatch(fetchPhoneBooks);
+  }, [dispatch]);
 
-  //функція (метод) перевірка на унікальність контактів
-  // const checkUniqueContact = name => {
-  //   //перевіряємо наявність контакту в масиві контактів
-  //   //ставим !! якщо щось знайдеться то отримаємо true в протилежному випадку false
-  //   if (
-  //     contacts.find(
-  //       contact => contact.name.toLowerCase() === name.toLowerCase()
-  //     )
-  //   ) {
-  //     //якщо існує контакт, то виводимо повідомленні
-  //     toast.error(`${name} is already in contacts`);
-  //     return false;
-  //   } else return true; //(якщо не існує контакту, тобто він унікальний)
-  // };
-
-  //метод обробки контактів який додає новий контакт
-  // const addContact = newContact => {
-  //   console.log('newContact', newContact);
-
-  //   if (checkUniqueContact(newContact.name)) {
-  //     setContacts(contacts => [...contacts, newContact]);
-  //     toast.success(
-  //       `New contact- "${newContact.name}" is add in your phonebook`
-  //     );
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (contacts) {
-  //     localStorage.setItem('contacts', JSON.stringify(contacts));
-  //   }
-  // }, [contacts]);
-
-  // const visibleContacts = getVisibleContacts();
   return (
     <>
-      <Section title="Phonebook">
-        <ContactForm />
-      </Section>
+      <Section title="Phonebook">{/* <ContactForm /> */}</Section>
       <Section title="Contacts">
         <Container>
           <h4>Find contacts by name</h4>
           <FilterInput />
+
           <ContactList />
         </Container>
         <ToastContainer autoClose={2000} />
