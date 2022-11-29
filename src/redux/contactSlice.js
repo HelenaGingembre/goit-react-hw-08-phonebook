@@ -58,6 +58,39 @@ export const {
 } = contactsApi;
 */
 
+const extraActions = [
+  fetchPhoneBooks,
+  addContact,
+  removeContact,
+  updateContact,
+];
+const getActions = type => extraActions.map(action => action[type]);
+
+const fetchContactsSuccessReducer = (state, { payload }) => {
+  state.items = payload;
+};
+const addContactSuccessReducer = (state, { payload }) => {
+  state.items.push(payload);
+};
+const removeContactSuccessReducer = (state, { payload }) => {
+  state.items = state.items.filter(contact => contact.id !== payload);
+};
+const updateContactSuccessReducer = (state, { payload }) => {
+  const index = state.items.findIndex(contact => contact.id === payload.id);
+  state.items[index] = payload;
+};
+const pendingReducer = state => {
+  state.isLoading = true;
+};
+const rejectedReducer = (state, { payload }) => {
+  state.isLoading = false;
+  state.error = payload;
+};
+const fulfilledreducer = state => {
+  state.isLoading = false;
+  state.error = null;
+};
+
 const contactSlice = createSlice({
   name: 'contacts',
   initialState: {
@@ -68,84 +101,13 @@ const contactSlice = createSlice({
   // Добавляем обработку внешних экшенов
   extraReducers: builder =>
     builder
-      // .addCase(fetchPhoneBooks.pending, state => {
-      //   state.isLoading = true;
-      // })
-      .addCase(fetchPhoneBooks.fulfilled, (state, { payload }) => {
-        state.items = payload;
-      })
-      // .addCase(fetchPhoneBooks.rejected, (state, { payload }) => {
-      //   state.isLoading = false;
-      //   state.error = payload;
-      // })
-      // .addCase(addContact.pending, state => {
-      //   state.isLoading = true;
-      // })
-      .addCase(addContact.fulfilled, (state, { payload }) => {
-        state.items.push(payload);
-      })
-      // .addCase(addContact.rejected, (state, { payload }) => {
-      //   state.isLoading = false;
-      //   state.error = payload;
-      // })
-      // .addCase(removeContact.pending, state => {
-      //   state.isLoading = true;
-      // })
-      .addCase(removeContact.fulfilled, (state, { payload }) => {
-        state.items = state.items.filter(contact => contact.id !== payload);
-      })
-      // .addCase(removeContact.rejected, (state, { payload }) => {
-      //   state.isLoading = false;
-      //   state.error = payload;
-      // })
-      // .addCase(updateContact.pending, state => {
-      //   state.isLoading = true;
-      // })
-      .addCase(updateContact.fulfilled, (state, { payload }) => {
-        const index = state.items.findIndex(
-          contact => contact.id === payload.id
-        );
-        state.items[index] = payload;
-      })
-      // .addCase(updateContact.rejected, (state, { payload }) => {
-      //   state.error = payload;
-      //   state.isLoading = false;
-      // })
-      .addMatcher(
-        isAnyOf(
-          fetchPhoneBooks.pending,
-          addContact.pending,
-          removeContact.pending,
-          updateContact.pending
-        ),
-        state => {
-          state.isLoading = true;
-        }
-      )
-      .addMatcher(
-        isAnyOf(
-          fetchPhoneBooks.rejected,
-          addContact.rejected,
-          removeContact.rejected,
-          updateContact.rejected
-        ),
-        (state, { payload }) => {
-          state.isLoading = false;
-          state.error = payload;
-        }
-      )
-      .addMatcher(
-        isAnyOf(
-          fetchPhoneBooks.fulfilled,
-          addContact.fulfilled,
-          removeContact.fulfilled,
-          updateContact.fulfilled
-        ),
-        state => {
-          state.isLoading = false;
-          state.error = null;
-        }
-      ),
+      .addCase(fetchPhoneBooks.fulfilled, fetchContactsSuccessReducer)
+      .addCase(addContact.fulfilled, addContactSuccessReducer)
+      .addCase(removeContact.fulfilled, removeContactSuccessReducer)
+      .addCase(updateContact.fulfilled, updateContactSuccessReducer)
+      .addMatcher(isAnyOf(...getActions('pending')), pendingReducer)
+      .addMatcher(isAnyOf(...getActions('rejected')), rejectedReducer)
+      .addMatcher(isAnyOf(...getActions('fulfilled')), fulfilledreducer),
 });
 // Генераторы экшенов
 // export const { addContact, removeContact } = contactSlice1.actions;
