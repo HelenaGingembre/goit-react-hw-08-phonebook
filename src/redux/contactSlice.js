@@ -66,6 +66,7 @@ const extraActions = [
 ];
 const getActions = type => extraActions.map(action => action[type]);
 
+// Case reducers
 const fetchContactsSuccessReducer = (state, { payload }) => {
   state.items = payload;
 };
@@ -109,8 +110,6 @@ const contactSlice = createSlice({
       .addMatcher(isAnyOf(...getActions('rejected')), rejectedReducer)
       .addMatcher(isAnyOf(...getActions('fulfilled')), fulfilledreducer),
 });
-// Генераторы экшенов
-// export const { addContact, removeContact } = contactSlice1.actions;
 
 // Редюсер слайса
 export const contactsReducer = contactSlice.reducer;

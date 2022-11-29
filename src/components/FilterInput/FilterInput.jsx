@@ -2,11 +2,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Input } from './FilterInput.styled';
 import { filterContact } from '../../redux/filterSlice';
-import { getFilter } from 'redux/selectors';
+import { selectFilter } from 'redux/selectors';
 
 export const FilterInput = () => {
   const dispatch = useDispatch();
-  const filterValue = useSelector(getFilter);
+  const filterValue = useSelector(selectFilter);
   return (
     <Input
       type="text"

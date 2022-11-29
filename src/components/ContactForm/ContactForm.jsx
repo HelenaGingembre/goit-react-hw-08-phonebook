@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from '../../redux/contactSlice';
+import { addContact } from '../../redux/operations';
 import { Form, Label, Input, Btn } from './ContactForm.styled';
 import { nanoid } from 'nanoid';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
-import { getContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/selectors';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -42,7 +42,7 @@ export const ContactForm = () => {
       return;
     }
 
-    // dispatch(addContact({ id: nanoid(10), name, number }));
+    dispatch(addContact({ id: nanoid(10), name, number }));
     toast.success(`Contact ${name}is add phonebook`);
 
     resetForm();
