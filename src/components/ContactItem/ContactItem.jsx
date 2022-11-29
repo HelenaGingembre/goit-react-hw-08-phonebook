@@ -5,10 +5,10 @@ import { selectContacts } from 'redux/selectors';
 
 import { ContactListLi, ButtonDelete } from '../ContactList/ContactList.styled';
 
-export const ContactListItem = ({ contact }) => {
+export const ContactListItem = item => {
   const dispatch = useDispatch();
 
-  const handleDelete = () => dispatch(removeContact(contact.id));
+  const handleDelete = () => dispatch(removeContact(item.id));
 
   const contacts = useSelector(selectContacts);
   const handleUpdate = contactId => {
@@ -17,9 +17,9 @@ export const ContactListItem = ({ contact }) => {
   };
   return (
     <ContactListLi>
-      {contact.name}: {contact.number}
+      {item.name}: {item.number}
       <ButtonDelete onClick={handleDelete}>x</ButtonDelete>
-      <ButtonDelete onClick={() => handleUpdate(contact.id)}>Edit</ButtonDelete>
+      <ButtonDelete onClick={() => handleUpdate(item.id)}>Edit</ButtonDelete>
     </ContactListLi>
   );
 };

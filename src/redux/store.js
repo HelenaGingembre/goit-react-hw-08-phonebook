@@ -1,7 +1,9 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { configureStore /*combineReducers*/ } from '@reduxjs/toolkit';
 import { contactsReducer } from './contactSlice';
 import { filterReducer } from './filterSlice';
-import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+// import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+
+/*
 import {
   persistStore,
   persistReducer,
@@ -38,13 +40,11 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
+*/
 
-/*export const store = configureStore({
+export const store = configureStore({
   reducer: {
-    [materialsApi.reducerPath]: materialsApi.reducer,
+    contacts: contactsReducer,
+    filter: filterReducer,
   },
-  middleware: getDefaultMiddleware => [
-    ...getDefaultMiddleware(),
-    materialsApi.middleware,
-  ],
-});*/
+});

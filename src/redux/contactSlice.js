@@ -72,6 +72,7 @@ const fetchContactsSuccessReducer = (state, { payload }) => {
 };
 const addContactSuccessReducer = (state, { payload }) => {
   state.items.push(payload);
+  // [...state.items, payload];
 };
 const removeContactSuccessReducer = (state, { payload }) => {
   state.items = state.items.filter(contact => contact.id !== payload);
@@ -110,6 +111,8 @@ const contactSlice = createSlice({
       .addMatcher(isAnyOf(...getActions('rejected')), rejectedReducer)
       .addMatcher(isAnyOf(...getActions('fulfilled')), fulfilledreducer),
 });
+
+console.log('contactSlice', contactSlice);
 
 // Редюсер слайса
 export const contactsReducer = contactSlice.reducer;
