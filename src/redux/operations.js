@@ -1,6 +1,5 @@
-import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-
+import axios from 'axios';
 // import {
 //   fetchingInProgress,
 //   fetchingSuccess,
@@ -13,7 +12,7 @@ export const fetchPhoneBooks = createAsyncThunk(
   'contacts/fetchAll',
   // Используем символ подчеркивания как имя первого параметра,
   // потому что в этой операции он нам не нужен
-  async (_, thunkAPI) => {
+  async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get('/contacts');
       // При успешном запросе возвращаем промис с данными
@@ -21,7 +20,7 @@ export const fetchPhoneBooks = createAsyncThunk(
     } catch (error) {
       // При ошибке запроса возвращаем промис
       // который будет отклонен с текстом ошибки
-      return thunkAPI.rejectWithValue(error.message);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -38,3 +37,38 @@ export const fetchPhoneBooks = createAsyncThunk(
     dispatch(fetchingError(error.message));
   }
 };*/
+
+export const addContact = createAsyncThunk(
+  'contacts/addContact',
+  async (contact, { rejectWithValue }) => {
+    try {
+      const response = await axios.get('/contacts');
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const removeContact = createAsyncThunk(
+  'contacts/removeContact',
+  async (contact, { rejectWithValue }) => {
+    try {
+      const response = await axios.get('/contacts');
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+export const updateContact = createAsyncThunk(
+  'contacts/updateContact',
+  async (contact, { rejectWithValue }) => {
+    try {
+      const response = await axios.get('/contacts');
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
