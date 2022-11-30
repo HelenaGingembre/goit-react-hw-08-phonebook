@@ -72,11 +72,11 @@ const fetchContactsSuccessReducer = (state, { payload }) => {
   state.items = payload;
 };
 const addContactSuccessReducer = (state, { payload }) => {
-  // state.items.push(payload);
-  return {
-    ...state,
-    contacts: [...state.items, payload],
-  };
+  state.items.push(payload);
+  // return {
+  //   ...state,
+  //   contacts: [...state.items, payload],
+  // };
   // [...state.items, payload];
 };
 const removeContactSuccessReducer = (state, { payload }) => {
