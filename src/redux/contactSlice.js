@@ -73,24 +73,10 @@ const fetchContactsSuccessReducer = (state, { payload }) => {
 };
 const addContactSuccessReducer = (state, { payload }) => {
   state.items.push(payload);
-  // return {
-  //   ...state,
-  //   contacts: [...state.items, payload],
-  // };
-  // [...state.items, payload];
 };
 const removeContactSuccessReducer = (state, { payload }) => {
-  return {
-    ...state,
-    contacts: (state.items = state.items.filter(
-      contact => contact.id !== payload.id
-    )),
-  };
-
-  //   return {
-  //   ...state,
-  //   contacts: state.contacts.filter((contact) => contact.id === action.payload.id);
-  // }
+  const index = state.items.findIndex(contact => contact.id === payload.id);
+  state.items.splice(index, 1);
 };
 const updateContactSuccessReducer = (state, { payload }) => {
   const index = state.items.findIndex(contact => contact.id === payload.id);

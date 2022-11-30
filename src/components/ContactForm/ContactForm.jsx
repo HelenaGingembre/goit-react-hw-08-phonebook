@@ -43,7 +43,7 @@ export const ContactForm = () => {
     }
 
     dispatch(addContact({ id: nanoid(10), name, number }));
-    toast.success(`Contact ${name}is add phonebook`);
+    toast.success(`Contact ${name} is add phonebook`);
 
     resetForm();
   };
