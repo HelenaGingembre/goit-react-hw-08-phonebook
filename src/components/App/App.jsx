@@ -18,7 +18,7 @@ export function App() {
   const error = useSelector(selectError);
 
   useEffect(() => {
-    dispatch(fetchPhoneBooks);
+    dispatch(fetchPhoneBooks());
   }, [dispatch]);
 
   return (

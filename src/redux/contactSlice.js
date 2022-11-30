@@ -68,14 +68,29 @@ const getActions = type => extraActions.map(action => action[type]);
 
 // Case reducers
 const fetchContactsSuccessReducer = (state, { payload }) => {
+  console.log('state.items', state.items);
   state.items = payload;
 };
 const addContactSuccessReducer = (state, { payload }) => {
-  state.items.push(payload);
+  // state.items.push(payload);
+  return {
+    ...state,
+    contacts: [...state.items, payload],
+  };
   // [...state.items, payload];
 };
 const removeContactSuccessReducer = (state, { payload }) => {
-  state.items = state.items.filter(contact => contact.id !== payload);
+  return {
+    ...state,
+    contacts: (state.items = state.items.filter(
+      contact => contact.id !== payload.id
+    )),
+  };
+
+  //   return {
+  //   ...state,
+  //   contacts: state.contacts.filter((contact) => contact.id === action.payload.id);
+  // }
 };
 const updateContactSuccessReducer = (state, { payload }) => {
   const index = state.items.findIndex(contact => contact.id === payload.id);

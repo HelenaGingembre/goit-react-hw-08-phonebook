@@ -5,21 +5,22 @@ import { selectContacts } from 'redux/selectors';
 
 import { ContactListLi, ButtonDelete } from '../ContactList/ContactList.styled';
 
-export const ContactListItem = item => {
+export const ContactListItem = ({ contact }) => {
   const dispatch = useDispatch();
+  // console.log('item', item);
+  const handleDelete = () => dispatch(removeContact(contact.id));
 
-  const handleDelete = () => dispatch(removeContact(item.id));
-
-  const contacts = useSelector(selectContacts);
-  const handleUpdate = contactId => {
-    const contact = contacts.find(({ id }) => id === contactId);
-    updateContact(contact);
-  };
+  // const contacts = useSelector(selectContacts);
+  // console.log('contacts Item', contacts);
+  // const handleUpdate = contactId => {
+  //   const contact = contacts.find((contact.id) => id === contactId);
+  //   updateContact(contact);
+  // };
   return (
     <ContactListLi>
-      {item.name}: {item.number}
+      {contact.name}: {contact.phone}
       <ButtonDelete onClick={handleDelete}>x</ButtonDelete>
-      <ButtonDelete onClick={() => handleUpdate(item.id)}>Edit</ButtonDelete>
+      {/* <ButtonDelete onClick={() => handleUpdate(contact.id)}>Edit</ButtonDelete> */}
     </ContactListLi>
   );
 };
