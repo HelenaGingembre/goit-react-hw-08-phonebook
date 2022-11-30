@@ -57,14 +57,3 @@ export const removeContact = createAsyncThunk(
     }
   }
 );
-export const updateContact = createAsyncThunk(
-  'contacts/updateContact',
-  async (contact, { rejectWithValue }) => {
-    try {
-      const response = await axios.put(`/contacts/${contact.id}`, contact);
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);

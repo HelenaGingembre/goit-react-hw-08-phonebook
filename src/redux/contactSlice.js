@@ -1,11 +1,6 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 // import { nanoid } from 'nanoid';
-import {
-  fetchPhoneBooks,
-  addContact,
-  removeContact,
-  updateContact,
-} from './operations';
+import { fetchPhoneBooks, addContact, removeContact } from './operations';
 // import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 /*
 export const contactsApi = createApi({
@@ -58,12 +53,7 @@ export const {
 } = contactsApi;
 */
 
-const extraActions = [
-  fetchPhoneBooks,
-  addContact,
-  removeContact,
-  updateContact,
-];
+const extraActions = [fetchPhoneBooks, addContact, removeContact];
 const getActions = type => extraActions.map(action => action[type]);
 
 // Case reducers
@@ -78,10 +68,7 @@ const removeContactSuccessReducer = (state, { payload }) => {
   const index = state.items.findIndex(contact => contact.id === payload.id);
   state.items.splice(index, 1);
 };
-const updateContactSuccessReducer = (state, { payload }) => {
-  const index = state.items.findIndex(contact => contact.id === payload.id);
-  state.items[index] = payload;
-};
+
 const pendingReducer = state => {
   state.isLoading = true;
 };
@@ -107,7 +94,6 @@ const contactSlice = createSlice({
       .addCase(fetchPhoneBooks.fulfilled, fetchContactsSuccessReducer)
       .addCase(addContact.fulfilled, addContactSuccessReducer)
       .addCase(removeContact.fulfilled, removeContactSuccessReducer)
-      .addCase(updateContact.fulfilled, updateContactSuccessReducer)
       .addMatcher(isAnyOf(...getActions('pending')), pendingReducer)
       .addMatcher(isAnyOf(...getActions('rejected')), rejectedReducer)
       .addMatcher(isAnyOf(...getActions('fulfilled')), fulfilledreducer),
