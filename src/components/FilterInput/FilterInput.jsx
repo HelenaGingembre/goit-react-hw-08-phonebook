@@ -2,7 +2,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Input } from './FilterInput.styled';
-import { filterContact } from '../../redux/filterSlice';
+import { setFilterContact } from '../../redux/filterSlice';
 import { selectFilter } from 'redux/selectors';
 
 export const FilterInput = () => {
@@ -13,10 +13,8 @@ export const FilterInput = () => {
       type="text"
       name="filter"
       placeholder="Enter name for Search Contact"
-      // value={filter}
-      // onChange={({ target }) => onChange(target.value.trim())}
       value={filterValue}
-      onChange={e => dispatch(filterContact(e.target.value))}
+      onChange={({ target }) => dispatch(setFilterContact(target.value.trim()))}
     />
   );
 };

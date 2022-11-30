@@ -4,14 +4,16 @@ const contactsFilterSlice = createSlice({
   name: 'filter',
   initialState: '',
   reducers: {
-    filterContact: (state, { payload }) => (state.filter = payload),
+    setFilterContact: (_, { payload }) => {
+      return payload;
+    },
   },
 });
 
 console.log('contactsFilterSlice', contactsFilterSlice);
 // Генераторы экшенов
 
-export const { filterContact } = contactsFilterSlice.actions;
+export const { setFilterContact } = contactsFilterSlice.actions;
 
 // Редюсер слайса
 export const filterReducer = contactsFilterSlice.reducer;

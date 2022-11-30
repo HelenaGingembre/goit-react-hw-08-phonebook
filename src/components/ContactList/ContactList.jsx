@@ -1,21 +1,26 @@
 import { useSelector } from 'react-redux';
-import { selectContacts /*selectFilteredContacts*/ } from 'redux/selectors';
+import {
+  selectContacts,
+  selectFilter,
+  selectFilterContacts,
+} from 'redux/selectors';
 
 import { ContactListItem } from '../ContactItem/ContactItem';
 import { ContactListBox } from './ContactList.styled';
 
 export const ContactList = () => {
   const contacts = useSelector(selectContacts);
-  // const filteredContacts = useSelector(selectFilteredContacts);
+  const filterContacts = useSelector(selectFilterContacts);
+  // const filter = useSelector(selectFilter);
+  // const filterContacts = contacts.filter(({ name }) =>
+  //   name.toLowerCase().includes(filter.toLowerCase())
+  // );
   console.log('contacts', contacts);
   return (
     <>
-      {/* {isLoading && <p>Loading phone books...</p>}
-      {error && <p>{error}</p>} */}
-      {/* {contacts.length > 0 && filteredContacts.length !== 0 ? ( */}
-      {contacts.length > 0 ? (
+      {contacts.length > 0 && filterContacts.length > 0 ? (
         <ContactListBox>
-          {contacts.map(item => (
+          {filterContacts.map(item => (
             <ContactListItem contact={item} key={item.id} />
           ))}
         </ContactListBox>
