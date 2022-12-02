@@ -9,6 +9,7 @@ export const Link = styled(NavLink)`
   color: #2a363b;
 
   &.active {
-    color: #e84a5f;
+    color: rgb(66, 152, 249);
+    // background-image: linear-gradient(rgb(93, 196, 255), rgb(255, 250, 102));
   }
 `;
