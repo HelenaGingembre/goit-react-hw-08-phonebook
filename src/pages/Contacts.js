@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Helmet } from 'react-helmet';
+
 import { fetchPhoneBooks } from '../redux/contacts/operations';
 import { selectError, selectIsLoading } from '../redux/contacts/selectors';
 import { Outlet } from 'react-router-dom';
@@ -18,12 +20,16 @@ export default function Contacts() {
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
 
+  console.log('fetchPhoneBooks ', fetchPhoneBooks());
   useEffect(() => {
     dispatch(fetchPhoneBooks());
   }, [dispatch]);
 
   return (
     <>
+      <Helmet>
+        <title>Your tasks</title>
+      </Helmet>
       <Section title="Phonebook">
         <ContactForm />
       </Section>

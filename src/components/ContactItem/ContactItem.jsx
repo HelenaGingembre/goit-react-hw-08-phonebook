@@ -9,15 +9,9 @@ export const ContactListItem = ({ contact }) => {
 
   const handleDelete = () => dispatch(removeContact(contact.id));
 
-  // const contacts = useSelector(selectContacts);
-  // console.log('contacts Item', contacts);
-  // const handleUpdate = contactId => {
-  //   const contact = contacts.find((contact.id) => id === contactId);
-  //   updateContact(contact);
-  // };
   return (
     <ContactListLi>
-      {contact.name}: {contact.phone}
+      {contact.name}: {contact.number}
       <ButtonDelete onClick={handleDelete}>x</ButtonDelete>
     </ContactListLi>
   );

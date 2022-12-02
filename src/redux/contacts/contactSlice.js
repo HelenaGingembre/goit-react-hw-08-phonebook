@@ -1,57 +1,6 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 // import { nanoid } from 'nanoid';
 import { fetchPhoneBooks, addContact, removeContact } from './operations';
-// import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-/*
-export const contactsApi = createApi({
-  reducerPath: 'contacts',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://637f84ef5b1cc8d6f947ec12.mockapi.io',
-  }),
-  tagTypes: ['Contact'],
-  endpoints: builder => ({
-    getContacts: builder.query({
-      query: () => '/contacts',
-      providesTags: ['Contact'],
-    }),
-    getContactById: builder.query({
-      query: id => `/contacts/${id}`,
-      providesTags: ['Contact'],
-    }),
-    addContact: builder.mutation({
-      query: values => ({
-        url: '/contacts',
-        method: 'POST',
-        body: values,
-      }),
-      invalidatesTags: ['Contact'],
-    }),
-    deleteContact: builder.mutation({
-      query: id => ({
-        url: `/contacts/${id}`,
-        method: 'DELETE',
-      }),
-      invalidatesTags: ['Contact'],
-    }),
-    updateContact: builder.mutation({
-      query: fields => ({
-        url: `/contacts/${fields.id}`,
-        method: 'PUT',
-        body: fields,
-      }),
-      invalidatesTags: ['Contacts'],
-    }),
-  }),
-});
-
-export const {
-  useGetContactsQuery,
-  useAddContactMutation,
-  useDeleteContactMutation,
-  useGetContactByIdQuery,
-  useUpdateContactMutation,
-} = contactsApi;
-*/
 
 const extraActions = [fetchPhoneBooks, addContact, removeContact];
 const getActions = type => extraActions.map(action => action[type]);
