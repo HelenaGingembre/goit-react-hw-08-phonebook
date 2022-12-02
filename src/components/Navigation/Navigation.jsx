@@ -12,6 +12,8 @@ export const Navigation = () => {
       {/* {isLoggedIn && ( */}
       <Link to="/contacts">Contacts</Link>
       {/* )} */}
+      <Link to="/login">LoginTest</Link>
+      <Link to="/register">Register</Link>
     </nav>
   );
 };
