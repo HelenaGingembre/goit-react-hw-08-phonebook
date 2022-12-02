@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPhoneBooks } from 'redux/operations';
-import { selectError, selectIsLoading } from 'redux/selectors';
+import { fetchPhoneBooks } from '../redux/contacts/operations';
+import { selectError, selectIsLoading } from '../redux/contacts/selectors';
 import { Outlet } from 'react-router-dom';
 
 import { ToastContainer /*, toast*/ } from 'react-toastify';

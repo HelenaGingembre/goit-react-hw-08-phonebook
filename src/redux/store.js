@@ -1,9 +1,13 @@
-import { configureStore /*combineReducers*/ } from '@reduxjs/toolkit';
-import { contactsReducer } from './contactSlice';
-import { filterReducer } from './filterSlice';
-// import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+import {
+  configureStore,
+  combineReducers,
+  getDefaultMiddleware,
+} from '@reduxjs/toolkit';
+import { contactsReducer } from '../redux/contacts/contactSlice';
+import { filterReducer } from '../redux/contacts/filterSlice';
+import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+import { authReducer } from './auth/authSlice';
 
-/*
 import {
   persistStore,
   persistReducer,
@@ -15,17 +19,27 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-const rootReducer = combineReducers({
+const middleware = [
+  ...getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },
+  }),
+];
+
+// Persisting token field from auth slice to localstorage
+const authPersistConfig = {
+  key: 'auth',
+  storage,
+  whitelist: ['token'],
+};
+
+const rootContactsReducer = combineReducers({
   contacts: contactsReducer,
   filter: filterReducer,
 });
 
-const persistConfig = {
-  key: 'root',
-  storage,
-  whitelist: ['contacts'],
-};
-
+/*
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
@@ -37,14 +51,14 @@ export const store = configureStore({
       },
     }),
   ],
+});*/
+export const store = configureStore({
+  reducer: {
+    auth: persistReducer(authPersistConfig, authReducer),
+    contacts: rootContactsReducer,
+  },
+  middleware,
+  devTools: process.env.NODE_ENV === 'development',
 });
 
 export const persistor = persistStore(store);
-*/
-
-export const store = configureStore({
-  reducer: {
-    contacts: contactsReducer,
-    filter: filterReducer,
-  },
-});
