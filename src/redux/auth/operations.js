@@ -24,8 +24,10 @@ export const register = createAsyncThunk(
       const res = await axios.post('/users/signup', credentials);
       // After successful registration, add the token to the HTTP header
       setAuthHeader(res.data.token);
+      console.log('res.data.token', res.data.token);
       return res.data;
     } catch (error) {
+      console.log('User is already exist');
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -44,6 +46,7 @@ export const logIn = createAsyncThunk(
       setAuthHeader(res.data.token);
       return res.data;
     } catch (error) {
+      console.log('Incorrect login or password');
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -68,7 +71,8 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
  * headers: Authorization: Bearer token
  */
 export const refreshUser = createAsyncThunk(
-  'auth/refresh',
+  // 'auth/refresh',
+  'auth/relogin',
   async (_, thunkAPI) => {
     // Reading the token from the state via getState()
     const state = thunkAPI.getState();
@@ -82,9 +86,15 @@ export const refreshUser = createAsyncThunk(
     try {
       // If there is a token, add it to the HTTP header and perform the request
       setAuthHeader(persistedToken);
-      const res = await axios.get('/users/me');
+      // const res = await axios.get('/users/me');
+      const res = await axios.get('/users/current');
       return res.data;
     } catch (error) {
+      clearAuthHeader();
+      if (error.response.status === 401) {
+        return thunkAPI.rejectWithValue(error.response.data.message);
+      }
+      console.log('something went wrong, please, try again');
       return thunkAPI.rejectWithValue(error.message);
     }
   }
