@@ -16,4 +16,5 @@ console.log('contactsFilterSlice', contactsFilterSlice);
 export const { setFilterContact } = contactsFilterSlice.actions;
 
 // Редюсер слайса
-export const filterReducer = contactsFilterSlice.reducer;
+const filterReducer = contactsFilterSlice.reducer;
+export default filterReducer;

@@ -3,10 +3,10 @@ import {
   // combineReducers,
   // getDefaultMiddleware,
 } from '@reduxjs/toolkit';
-import { contactsReducer } from '../redux/contacts/contactSlice';
-import { filterReducer } from '../redux/contacts/filterSlice';
+import contactsReducer from '../redux/contacts/contactSlice';
+import filterReducer from '../redux/contacts/filterSlice';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
-import { authReducer } from './auth/authSlice';
+import authReducer from './auth/authSlice';
 
 import {
   persistStore,

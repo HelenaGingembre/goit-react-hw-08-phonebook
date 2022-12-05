@@ -51,4 +51,5 @@ const contactSlice = createSlice({
 console.log('contactSlice', contactSlice);
 
 // Редюсер слайса
-export const contactsReducer = contactSlice.reducer;
+const contactsReducer = contactSlice.reducer;
+export default contactsReducer;
