@@ -16,8 +16,8 @@ export const ContactList = () => {
     <>
       {contacts.length > 0 && filterContacts.length > 0 ? (
         <ContactListBox>
-          {filterContacts.map(item => (
-            <ContactListItem contact={item} key={item.id} />
+          {filterContacts.map(contact => (
+            <ContactListItem contact={contact} key={contact.id} />
           ))}
         </ContactListBox>
       ) : (

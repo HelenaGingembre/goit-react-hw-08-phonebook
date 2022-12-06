@@ -20,7 +20,7 @@ export default function Contacts() {
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
 
-  console.log('fetchPhoneBooks ', fetchPhoneBooks());
+  // console.log('fetchPhoneBooks ', fetchPhoneBooks());
   useEffect(() => {
     dispatch(fetchPhoneBooks());
   }, [dispatch]);

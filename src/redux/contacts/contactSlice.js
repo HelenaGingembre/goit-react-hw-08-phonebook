@@ -12,6 +12,7 @@ const fetchContactsSuccessReducer = (state, { payload }) => {
 };
 const addContactSuccessReducer = (state, { payload }) => {
   state.items.push(payload);
+  console.log('add contact', state.items);
 };
 const removeContactSuccessReducer = (state, { payload }) => {
   const index = state.items.findIndex(contact => contact.id === payload.id);

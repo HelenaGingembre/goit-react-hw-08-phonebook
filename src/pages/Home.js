@@ -16,14 +16,23 @@ const styles = {
 
 export default function Home() {
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>
-        Task manager welcome page{' '}
-        <span role="img" aria-label="Greeting icon">
-          💁‍♀️
-        </span>
-      </h1>
-      <Outlet></Outlet>
-    </div>
+    <>
+      <div style={styles.container}>
+        <h1>
+          Welcome
+          <span role="img" aria-label="Greeting icon">
+            👋
+          </span>
+        </h1>
+
+        <h2>
+          Now you will exactly not forget your contacts!
+          <span role="img" aria-label="Greeting icon">
+            💁‍♀️
+          </span>
+        </h2>
+        <Outlet></Outlet>
+      </div>
+    </>
   );
 }
