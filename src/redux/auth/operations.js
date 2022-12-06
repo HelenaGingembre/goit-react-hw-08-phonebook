@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
 
@@ -27,7 +28,14 @@ export const register = createAsyncThunk(
       console.log('res.data.token', res.data.token);
       return res.data;
     } catch (error) {
-      console.log('User is already exist');
+      toast.error('User is already exist');
+      if (error.response.status === 400) {
+        toast.error('User creation error! Please try again!');
+      } else if (error.response.status === 500) {
+        toast.error('Oops! Server error! Please try later!');
+      } else {
+        toast.error('Something went wrong!');
+      }
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -44,9 +52,11 @@ export const logIn = createAsyncThunk(
       const res = await axios.post('/users/login', credentials);
       // After successful login, add the token to the HTTP header
       setAuthHeader(res.data.token);
+      console.log('/users/login', res.data);
       return res.data;
     } catch (error) {
       console.log('Incorrect login or password');
+      toast.error('Incorrec email or password! Try again!');
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -62,6 +72,11 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
     // After a successful logout, remove the token from the HTTP header
     clearAuthHeader();
   } catch (error) {
+    if (error.response.status === 500) {
+      toast.error('Oops! Server error! Please try later!');
+    }
+    toast.error('Something went wrong! Please reload the page!');
+
     return thunkAPI.rejectWithValue(error.message);
   }
 });
@@ -88,13 +103,17 @@ export const refreshUser = createAsyncThunk(
       setAuthHeader(persistedToken);
       // const res = await axios.get('/users/me');
       const res = await axios.get('/users/current');
+      console.log('/users/current', res.data);
       return res.data;
     } catch (error) {
       clearAuthHeader();
       if (error.response.status === 401) {
+        toast.error(
+          'something went wrong, user unauthorized. Please, try again'
+        );
         return thunkAPI.rejectWithValue(error.response.data.message);
       }
-      console.log('something went wrong, please, try again');
+      toast.error('something went wrong, please, try again');
       return thunkAPI.rejectWithValue(error.message);
     }
   }
