@@ -1,5 +1,4 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-// import { nanoid } from 'nanoid';
 import { fetchPhoneBooks, addContact, removeContact } from './operations';
 
 const extraActions = [fetchPhoneBooks, addContact, removeContact];
