@@ -9,7 +9,7 @@ import { Loader } from './Loader/Loader';
 
 export const Layout = () => {
   return (
-    <div style={{ maxWidth: 960, margin: '0 auto', padding: '5px 16px' }}>
+    <>
       <AppBar />
       <Suspense
         fallback={
@@ -22,6 +22,6 @@ export const Layout = () => {
         <Outlet />
       </Suspense>
       <ToastContainer autoClose={2000} theme="colored" />
-    </div>
+    </>
   );
 };
