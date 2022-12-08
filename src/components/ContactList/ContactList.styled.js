@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 
 export const ButtonDelete = styled.button`
-  margin-left: 10px;
-  margin-right: 10px;
-  padding: 2px;
+  width: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,7 +23,7 @@ export const ContactListLi = styled.li`
   border-bottom: 1px dotted ${p => p.theme.colors.accent};
 `;
 export const ContactListBox = styled.ul`
-  width: 500px;
+  width: 100%;
   list-style: circle;
-  padding: 20px;
+  padding: 20px 0;
 `;
