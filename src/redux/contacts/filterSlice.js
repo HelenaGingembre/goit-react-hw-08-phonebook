@@ -10,7 +10,6 @@ const contactsFilterSlice = createSlice({
   },
 });
 
-console.log('contactsFilterSlice', contactsFilterSlice);
 // Генераторы экшенов
 
 export const { setFilterContact } = contactsFilterSlice.actions;

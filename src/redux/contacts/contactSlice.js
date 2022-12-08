@@ -6,12 +6,10 @@ const getActions = type => extraActions.map(action => action[type]);
 
 // Case reducers
 const fetchContactsSuccessReducer = (state, { payload }) => {
-  console.log('state.items', state.items);
   state.items = payload;
 };
 const addContactSuccessReducer = (state, { payload }) => {
   state.items.push(payload);
-  console.log('add contact', state.items);
 };
 const removeContactSuccessReducer = (state, { payload }) => {
   const index = state.items.findIndex(contact => contact.id === payload.id);
@@ -47,8 +45,6 @@ const contactSlice = createSlice({
       .addMatcher(isAnyOf(...getActions('rejected')), rejectedReducer)
       .addMatcher(isAnyOf(...getActions('fulfilled')), fulfilledreducer),
 });
-
-console.log('contactSlice', contactSlice);
 
 // Редюсер слайса
 const contactsReducer = contactSlice.reducer;

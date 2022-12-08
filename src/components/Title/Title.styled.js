@@ -30,13 +30,3 @@ export const Title = styled.h1`
     font-size: 2rem;
   }
 `;
-
-// // Title react animation
-// export const Appear = styled.appear`
-//   transform: translateX(-100%);
-// `;
-
-// export const AppearActive = styled.appearActive`
-//   transform: translateX(0);
-//   transition: all 500ms linear;
-// `;

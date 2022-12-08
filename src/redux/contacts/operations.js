@@ -4,7 +4,6 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
-// axios.defaults.baseURL = 'https://637f84ef5b1cc8d6f947ec12.mockapi.io';
 // GET @ /contacts
 export const fetchPhoneBooks = createAsyncThunk(
   'contacts/fetchAll',
@@ -14,7 +13,6 @@ export const fetchPhoneBooks = createAsyncThunk(
     try {
       const response = await axios.get('/contacts');
       // При успешном запросе возвращаем промис с данными
-      console.log('response.data /contacts', response.data);
       return response.data;
     } catch (error) {
       // При ошибке запроса возвращаем промис

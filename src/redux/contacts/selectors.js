@@ -14,16 +14,3 @@ export const selectFilterContacts = createSelector(
     );
   }
 );
-
-/*
-const selectItemsByCategory = createSelector(
-  [
-    // Usual first input - extract value from `state`
-    state => state.items,
-    // Take the second arg, `category`, and forward to the output selector
-    (state, category) => category
-  ],
-  // Output selector gets (`items, category)` as args
-  (items, category) => items.filter(item => item.category === category)
-)
- */

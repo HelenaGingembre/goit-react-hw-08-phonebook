@@ -7,11 +7,7 @@ import { ContactListBox } from './ContactList.styled';
 export const ContactList = () => {
   const contacts = useSelector(selectContacts);
   const filterContacts = useSelector(selectFilterContacts);
-  // const filter = useSelector(selectFilter);
-  // const filterContacts = contacts.filter(({ name }) =>
-  //   name.toLowerCase().includes(filter.toLowerCase())
-  // );
-  console.log('contacts', contacts);
+
   return (
     <>
       {contacts.length > 0 && filterContacts.length > 0 ? (
@@ -21,7 +17,9 @@ export const ContactList = () => {
           ))}
         </ContactListBox>
       ) : (
-        <h4>Phonebook is empty</h4>
+        <div>
+          <h4>Phonebook is empty</h4>
+        </div>
       )}
     </>
   );
