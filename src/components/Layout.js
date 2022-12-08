@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import { AppBar } from './AppBar/AppBar';
 import { Suspense } from 'react';
 import { Loader } from './Loader/Loader';
+import { AppFooter } from './AppFooter/AppFooter';
 
 export const Layout = () => {
   return (
@@ -21,6 +22,7 @@ export const Layout = () => {
       >
         <Outlet />
       </Suspense>
+      <AppFooter />
       <ToastContainer autoClose={2000} theme="colored" />
     </>
   );
